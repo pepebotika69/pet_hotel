@@ -25,6 +25,9 @@ services:
     restart: unless-stopped
     ports:
       - "8088:80"
+    depends_on:
+      - web
+      - admin
 
   web:
     build:
@@ -36,6 +39,22 @@ services:
       - .:/app
     ports:
       - "8087:8000"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/pet_hotel
+    depends_on:
+      - db
+      - redis
+
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    container_name: pet_hotel_service_admin
+    #restart: unless-stopped
+    volumes:
+      - .:/app
+    ports:
+      - "8086:8000"
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/pet_hotel
     depends_on:
