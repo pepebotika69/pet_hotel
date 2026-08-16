@@ -1,0 +1,1 @@
+web: gunicorn pet_hotel.wsgi --log-file -
