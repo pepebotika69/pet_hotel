@@ -15,15 +15,17 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ENVIRONMENT_DEV = "DEV"
 ENVIRONMENT_PROD = "PROD"
-ENVIRONMENT = os.environ.get('ENVIRONMENT', "DEV")
+ENVIRONMENT = os.environ.get('ENVIRONMENT', "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
 if ENVIRONMENT == ENVIRONMENT_DEV:
     ALLOWED_HOSTS = ["*"]
-else:
+elif ENVIRONMENT == ENVIRONMENT_PROD:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+else:
+    raise ValueError("Unknown environment")
 
 # Heroku automatically sets HEROKU_APP_NAME if you enable Dyno Metadata
 HEROKU_APP_NAME = os.environ.get('HEROKU_APP_NAME')
