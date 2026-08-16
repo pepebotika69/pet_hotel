@@ -37,7 +37,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.admin
     container_name: pet_hotel_service
     #restart: unless-stopped
     volumes:
