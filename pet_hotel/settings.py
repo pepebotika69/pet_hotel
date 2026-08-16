@@ -18,7 +18,7 @@ ENVIRONMENT_PROD = "PROD"
 ENVIRONMENT = os.environ.get('ENVIRONMENT', "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', 0)
 
 if ENVIRONMENT == ENVIRONMENT_DEV:
     ALLOWED_HOSTS = ["*"]
