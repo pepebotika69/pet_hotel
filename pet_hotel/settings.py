@@ -23,14 +23,17 @@ DEBUG = os.environ.get('DEBUG', False)
 if ENVIRONMENT == ENVIRONMENT_DEV:
     ALLOWED_HOSTS = ["*"]
 elif ENVIRONMENT == ENVIRONMENT_PROD:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = [
+        'localhost',
+        '127.0.0.1',
+        '.herokuapp.com',
+    ]
 else:
     raise ValueError("Unknown environment")
 
-# Heroku automatically sets HEROKU_APP_NAME if you enable Dyno Metadata
-HEROKU_APP_DEFAULT_DOMAIN_NAME = os.environ.get('HEROKU_APP_DEFAULT_DOMAIN_NAME')
-if HEROKU_APP_DEFAULT_DOMAIN_NAME:
-    ALLOWED_HOSTS.append(f"HEROKU_APP_DEFAULT_DOMAIN_NAME")
+# HEROKU_APP_DEFAULT_DOMAIN_NAME = os.environ.get('HEROKU_APP_DEFAULT_DOMAIN_NAME')
+# if HEROKU_APP_DEFAULT_DOMAIN_NAME:
+#    ALLOWED_HOSTS.append(f"HEROKU_APP_DEFAULT_DOMAIN_NAME")
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8088",
