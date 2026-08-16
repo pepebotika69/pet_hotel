@@ -1,4 +1,5 @@
 import os
+import os
 from pathlib import Path
 
 import dj_database_url
@@ -12,10 +13,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+ENVIRONMENT_DEV = "DEV"
+ENVIRONMENT_PROD = "PROD"
+ENVIRONMENT = os.environ.get('ENVIRONMENT', "DEV")
 
-ALLOWED_HOSTS = ["*"]
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', False)
+
+if ENVIRONMENT == ENVIRONMENT_DEV:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Heroku automatically sets HEROKU_APP_NAME if you enable Dyno Metadata
+HEROKU_APP_NAME = os.environ.get('HEROKU_APP_NAME')
+if HEROKU_APP_NAME:
+    ALLOWED_HOSTS.append(f"{HEROKU_APP_NAME}.herokuapp.com")
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8088",
     "http://localhost:3000",
@@ -77,12 +91,12 @@ WSGI_APPLICATION = 'pet_hotel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DB_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 DATABASES = {
     "default": {
         **dj_database_url.config(
-            default=DB_URL
+            default=DATABASE_URL
         ),
         "DISABLE_SERVER_SIDE_CURSORS": True,
     },
