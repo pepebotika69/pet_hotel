@@ -38,15 +38,20 @@ else:
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8088",
     "http://localhost:3000",
+    "http://localhost:8087",
     "http://0.0.0.0:8088",
+    "http://0.0.0.0:3000",
     "http://127.0.0.1:8088",
+    "http://127.0.0.1:3000",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8088",
     "http://localhost:3000",
     "http://0.0.0.0:8088",
+    "http://0.0.0.0:3000",
     "http://127.0.0.1:8088",
+    "http://127.0.0.1:3000",
 ]
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -148,6 +153,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'Lax'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

@@ -32,7 +32,7 @@ services:
       - "${NGINX_PORT}:80"
     depends_on:
       - web
-      - admin
+      #- admin
 
   web:
     build:

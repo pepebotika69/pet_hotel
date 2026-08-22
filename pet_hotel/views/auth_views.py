@@ -67,6 +67,7 @@ def login_view(request):
     })
 
 
+@csrf_exempt  # TODO remove it latter
 @require_POST
 def logout_view(request):
     logout(request)
