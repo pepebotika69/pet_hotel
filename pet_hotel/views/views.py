@@ -1,14 +1,10 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
-
-@require_GET
-def check(request):
-    return JsonResponse({
-        "title": "hello world"
-    })
+from pet_hotel.views.decorators import login_required_json
 
 
+@login_required_json
 @require_GET
 def hotels(request):
     return JsonResponse({

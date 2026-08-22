@@ -53,6 +53,8 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://pet\-hotel\-.*\.herokuapp\.com$",
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 # Application definition
 
 INSTALLED_APPS = [
