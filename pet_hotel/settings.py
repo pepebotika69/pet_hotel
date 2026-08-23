@@ -67,9 +67,10 @@ elif ENVIRONMENT == ENVIRONMENT_PROD:
 else:
     raise ValueError("Unknown environment")
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://pet\-hotel\-.*\.herokuapp\.com$",
-]
+if ENVIRONMENT == ENVIRONMENT_PROD:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://pet\-hotel\-.*\.herokuapp\.com$",
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -165,11 +166,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# SESSION_COOKIE_SAMESITE = 'Lax'
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = False
-# CSRF_COOKIE_SAMESITE = 'Lax'
 
 # Force cookies to be sent over HTTPS only (Required for SameSite=None)
 SESSION_COOKIE_SECURE = True

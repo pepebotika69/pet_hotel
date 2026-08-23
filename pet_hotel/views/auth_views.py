@@ -43,7 +43,7 @@ def register(request):
 
 @csrf_exempt
 @require_POST
-def login_view(request):
+def login_view(request):  # TODO: add limiter
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
