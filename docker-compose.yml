@@ -37,8 +37,8 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.admin
-    container_name: pet_hotel_service
+      dockerfile: Dockerfile.web
+    container_name: web_service
     #restart: unless-stopped
     volumes:
       - .:/opt/apps
@@ -53,7 +53,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.admin
-    container_name: pet_hotel_service_admin
+    container_name: admin_service
     #restart: unless-stopped
     volumes:
       - .:/opt/apps
