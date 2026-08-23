@@ -67,7 +67,6 @@ elif ENVIRONMENT == ENVIRONMENT_PROD:
 else:
     raise ValueError("Unknown environment")
 
-
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://pet\-hotel\-.*\.herokuapp\.com$",
 ]
@@ -167,10 +166,23 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_SAMESITE = 'Lax'
+# SESSION_COOKIE_SAMESITE = 'Lax'
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# CSRF_COOKIE_SAMESITE = 'Lax'
+
+# Force cookies to be sent over HTTPS only (Required for SameSite=None)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Allow cookies to be sent in cross-site requests
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
+
+# Ensure cookies are protected from client-side scripts
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
