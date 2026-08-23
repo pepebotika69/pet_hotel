@@ -35,24 +35,38 @@ else:
 # if HEROKU_APP_DEFAULT_DOMAIN_NAME:
 #    ALLOWED_HOSTS.append(f"HEROKU_APP_DEFAULT_DOMAIN_NAME")
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8088",
-    "http://localhost:3000",
-    "http://localhost:8087",
-    "http://0.0.0.0:8088",
-    "http://0.0.0.0:3000",
-    "http://127.0.0.1:8088",
-    "http://127.0.0.1:3000",
-]
+if ENVIRONMENT == ENVIRONMENT_DEV:
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:8088",
+        "http://localhost:3000",
+        # "http://localhost:8087",
+        "http://0.0.0.0:8088",
+        "http://0.0.0.0:3000",
+        "http://127.0.0.1:8088",
+        "http://127.0.0.1:3000",
+    ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8088",
-    "http://localhost:3000",
-    "http://0.0.0.0:8088",
-    "http://0.0.0.0:3000",
-    "http://127.0.0.1:8088",
-    "http://127.0.0.1:3000",
-]
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:8088",
+        "http://localhost:3000",
+        "http://0.0.0.0:8088",
+        "http://0.0.0.0:3000",
+        "http://127.0.0.1:8088",
+        "http://127.0.0.1:3000",
+    ]
+elif ENVIRONMENT == ENVIRONMENT_PROD:
+    CSRF_TRUSTED_ORIGINS = [
+        "https://pet-hotel-frontend-456dd50e3c69.herokuapp.com",
+        "https://pet-hotel-074de305ca4c.herokuapp.com",
+    ]
+
+    CORS_ALLOWED_ORIGINS = [
+        "https://pet-hotel-frontend-456dd50e3c69.herokuapp.com",
+        "https://pet-hotel-074de305ca4c.herokuapp.com",
+    ]
+else:
+    raise ValueError("Unknown environment")
+
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://pet\-hotel\-.*\.herokuapp\.com$",
