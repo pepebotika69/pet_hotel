@@ -104,6 +104,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'apps.embassy',
+    'apps.hotel',
+    'apps.auth',
 ]
 
 MIDDLEWARE = [
@@ -118,7 +121,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pet_hotel.urls'
+ROOT_URLCONF = 'apps.urls'
 
 TEMPLATES = [
     {
@@ -136,7 +139,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pet_hotel.wsgi.application'
+WSGI_APPLICATION = 'apps.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

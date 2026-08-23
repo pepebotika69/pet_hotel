@@ -1,1 +1,1 @@
-web: gunicorn pet_hotel.wsgi --log-file -
+web: gunicorn apps.wsgi --log-file -

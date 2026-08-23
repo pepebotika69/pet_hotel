@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
-from pet_hotel.views.auth_views import csrf_token, register, login_view, logout_view, me
-from pet_hotel.views.views import hotels
+from apps.auth.auth_views import csrf_token, register, login_view, logout_view, me
+from apps.hotel.views.views import hotels
 
 urlpatterns = [
     path('admin/', admin.site.urls),

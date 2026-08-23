@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
-from pet_hotel.views.decorators import login_required_json
+from apps.auth.decorators import login_required_json
 
 
 @login_required_json

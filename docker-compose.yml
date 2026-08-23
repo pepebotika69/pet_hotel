@@ -41,7 +41,7 @@ services:
     container_name: pet_hotel_service
     #restart: unless-stopped
     volumes:
-      - .:/opt/pet_hotel
+      - .:/opt/apps
     ports:
       - "${WEB_PORT}:8000"
     env_file: .env
@@ -56,7 +56,7 @@ services:
     container_name: pet_hotel_service_admin
     #restart: unless-stopped
     volumes:
-      - .:/opt/pet_hotel
+      - .:/opt/apps
     ports:
       - "${ADMIN_PORT}:8000"
     env_file: .env
