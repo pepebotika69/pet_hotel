@@ -3,7 +3,7 @@ from django.db import models
 from apps.core.models.mixins import TimestampMixin
 
 
-class Partner(models.Model, TimestampMixin):
+class Partner(TimestampMixin, models.Model):
     """
     Partner model representing companies that own pet hotels
     """

@@ -6,7 +6,7 @@ from apps.hotel.core.defs.region_codes import RegionCodes
 from apps.hotel.models.partner import Partner
 
 
-class Hotel(models.Model, TimestampMixin):
+class Hotel(TimestampMixin, models.Model):
     """
     Pet Hotel model with location, rating, and partner relationship
     """
