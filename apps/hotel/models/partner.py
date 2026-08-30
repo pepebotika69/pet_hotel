@@ -20,13 +20,6 @@ class Partner(TimestampMixin, models.Model):
         blank=True
     )
 
-    #created_at = models.DateTimeField(
-    #    auto_now_add=True,
-    #)
-    #modified_at = models.DateTimeField(
-    #    auto_now=True,
-    #)
-
     class Meta:
         verbose_name = 'Partner'
         verbose_name_plural = 'Partners'

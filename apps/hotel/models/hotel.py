@@ -40,13 +40,6 @@ class Hotel(TimestampMixin, models.Model):
         db_index=True,
     )
 
-    #created_at = models.DateTimeField(
-    #    auto_now_add=True,
-    #)
-    #modified_at = models.DateTimeField(
-    #    auto_now=True,
-    #)
-
     class Meta:
         verbose_name = 'Hotel'
         verbose_name_plural = 'Hotels'

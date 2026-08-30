@@ -8,9 +8,7 @@ class UniversityCitizenInline(admin.TabularInline):
     """Inline admin for University relationships"""
     model = CitizenUniversity
     extra = 1
-    fields = ['citizen', 'enrollment_date', 'graduation_date', 'stop_date', 'is_active']
-    raw_id_fields = ['citizen']
-    autocomplete_fields = ['citizen']
+    fields = ['enrollment_date', 'graduation_date', 'stop_date', 'is_active']
 
 
 @admin.register(University)
@@ -26,9 +24,5 @@ class UniversityAdmin(admin.ModelAdmin):
         ('Location', {
             'fields': ('city_code', 'region_code')
         }),
-        ('Contact Person', {
-            'fields': ('citizen',)
-        }),
     )
     inlines = [UniversityCitizenInline]
-    raw_id_fields = ['citizen']

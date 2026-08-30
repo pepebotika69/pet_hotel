@@ -77,10 +77,6 @@ class Citizen(TimestampMixin, models.Model):
         help_text="Phone in Home Country"
     )
 
-    ## Timestamps
-    # created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
-    # modified_at = models.DateTimeField(auto_now=True, verbose_name="Modified At")
-
     class Meta:
         verbose_name = 'Citizen'
         verbose_name_plural = 'Citizens'

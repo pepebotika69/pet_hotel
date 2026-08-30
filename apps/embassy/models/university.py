@@ -1,6 +1,8 @@
 from django.db import models
 
 from apps.core.models.mixins import TimestampMixin
+from apps.hotel.core.defs.city_codes import CityCodes
+from apps.hotel.core.defs.region_codes import RegionCodes
 
 
 class University(TimestampMixin, models.Model):
@@ -16,21 +18,15 @@ class University(TimestampMixin, models.Model):
         blank=True
     )
     city_code = models.CharField(
-        max_length=20,
+        max_length=100,
+        choices=CityCodes.get_choices(),
         db_index=True,
     )
     region_code = models.CharField(
-        max_length=20,
+        max_length=100,
+        choices=RegionCodes.get_choices(),
         db_index=True,
     )
-
-    ## Timestamps
-    # created_at = models.DateTimeField(
-    #    auto_now_add=True,
-    # )
-    # modified_at = models.DateTimeField(
-    #    auto_now=True,
-    # )
 
     class Meta:
         verbose_name = 'University'
