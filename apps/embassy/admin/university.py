@@ -1,14 +1,6 @@
 from django.contrib import admin
 
-from apps.embassy.models import CitizenUniversity
 from apps.embassy.models import University
-
-
-class UniversityCitizenInline(admin.TabularInline):
-    """Inline admin for University relationships"""
-    model = CitizenUniversity
-    extra = 1
-    fields = ['enrollment_date', 'graduation_date', 'stop_date', 'is_active']
 
 
 @admin.register(University)
@@ -25,4 +17,3 @@ class UniversityAdmin(admin.ModelAdmin):
             'fields': ('city_code', 'region_code')
         }),
     )
-    inlines = [UniversityCitizenInline]

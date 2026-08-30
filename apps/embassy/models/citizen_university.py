@@ -1,10 +1,19 @@
 from django.db import models
 
-from apps.core.models.mixins import TimestampMixin
+from apps.core.models.mixins import TimestampMixin, SoftDeleteMixin
 
 
+class CitizenUniversityManager(models.Manager):
+    """Manager for Citizen model with soft delete support"""
 
-class CitizenUniversity(TimestampMixin, models.Model):
+    def not_deleted(self):
+        return super().get_queryset().filter(is_deleted=False)
+
+    def deleted(self):
+        return super().get_queryset().filter(is_deleted=True)
+
+
+class CitizenUniversity(TimestampMixin, SoftDeleteMixin, models.Model):
     """
     """
     citizen = models.ForeignKey(
@@ -39,6 +48,8 @@ class CitizenUniversity(TimestampMixin, models.Model):
         help_text="Is Active Student"
     )
 
+    objects = CitizenUniversityManager()
+
     class Meta:
         verbose_name = 'Citizen University Relation'
         verbose_name_plural = 'Citizen University Relations'
@@ -48,3 +59,18 @@ class CitizenUniversity(TimestampMixin, models.Model):
 
     def __str__(self):
         return f"{self.citizen.full_name} - {self.university.name}"
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+
+    @staticmethod
+    def soft_delete_bulk(ids: list[int]):
+        CitizenUniversity.objects.filter(id__in=ids).update(is_deleted=True)
+
+    def hard_delete(self):
+        self.delete()
+
+    @staticmethod
+    def hard_delete_bulk(ids: list[int]):
+        CitizenUniversity.objects.filter(id__in=ids).delete()

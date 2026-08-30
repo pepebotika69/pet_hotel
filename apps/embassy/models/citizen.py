@@ -3,10 +3,22 @@ from datetime import date
 from django.core.validators import EmailValidator, RegexValidator
 from django.db import models
 
-from apps.core.models.mixins import TimestampMixin
+from apps.core.models.mixins import TimestampMixin, SoftDeleteMixin
 
 
-class Citizen(TimestampMixin, models.Model):
+class CitizenManager(models.Manager):
+    """Manager for Citizen model with soft delete support"""
+
+    def not_deleted(self):
+        """Return only non-deleted citizens by default"""
+        return super().get_queryset().filter(is_deleted=False)
+
+    def deleted(self):
+        """Return only soft-deleted citizens"""
+        return super().get_queryset().filter(is_deleted=True)
+
+
+class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
     """
     Citizen model with personal information and contact details
     """
@@ -77,6 +89,8 @@ class Citizen(TimestampMixin, models.Model):
         help_text="Phone in Home Country"
     )
 
+    objects = CitizenManager()
+
     class Meta:
         verbose_name = 'Citizen'
         verbose_name_plural = 'Citizens'
@@ -87,6 +101,21 @@ class Citizen(TimestampMixin, models.Model):
 
     def __str__(self):
         return f"{self.full_name} ({self.main_email})"
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+
+    @staticmethod
+    def soft_delete_bulk(ids: list[int]):
+        Citizen.objects.filter(id__in=ids).update(is_deleted=True)
+
+    def hard_delete(self):
+        self.delete()
+
+    @staticmethod
+    def hard_delete_bulk(ids: list[int]):
+        Citizen.objects.filter(id__in=ids).delete()
 
     @property
     def full_name(self):
