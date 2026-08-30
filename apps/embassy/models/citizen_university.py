@@ -47,4 +47,4 @@ class CitizenUniversity(TimestampMixin, models.Model):
         ]
 
     def __str__(self):
-        return f"{self.citizen.full_name} - {self.university.name} ({self.role})"
+        return f"{self.citizen.full_name} - {self.university.name}"
