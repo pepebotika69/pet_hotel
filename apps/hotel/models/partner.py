@@ -1,7 +1,9 @@
 from django.db import models
 
+from apps.core.models.mixins import TimestampMixin
 
-class Partner(models.Model):
+
+class Partner(models.Model, TimestampMixin):
     """
     Partner model representing companies that own pet hotels
     """
@@ -18,12 +20,12 @@ class Partner(models.Model):
         blank=True
     )
 
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
-    modified_at = models.DateTimeField(
-        auto_now=True,
-    )
+    #created_at = models.DateTimeField(
+    #    auto_now_add=True,
+    #)
+    #modified_at = models.DateTimeField(
+    #    auto_now=True,
+    #)
 
     class Meta:
         verbose_name = 'Partner'

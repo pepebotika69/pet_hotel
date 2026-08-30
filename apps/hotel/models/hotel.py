@@ -1,11 +1,12 @@
 from django.db import models
 
+from apps.core.models.mixins import TimestampMixin
 from apps.hotel.core.defs.city_codes import CityCodes
 from apps.hotel.core.defs.region_codes import RegionCodes
 from apps.hotel.models.partner import Partner
 
 
-class Hotel(models.Model):
+class Hotel(models.Model, TimestampMixin):
     """
     Pet Hotel model with location, rating, and partner relationship
     """
@@ -39,12 +40,12 @@ class Hotel(models.Model):
         db_index=True,
     )
 
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
-    modified_at = models.DateTimeField(
-        auto_now=True,
-    )
+    #created_at = models.DateTimeField(
+    #    auto_now_add=True,
+    #)
+    #modified_at = models.DateTimeField(
+    #    auto_now=True,
+    #)
 
     class Meta:
         verbose_name = 'Hotel'
