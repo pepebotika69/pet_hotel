@@ -16,12 +16,9 @@ def restore_citizens(modeladmin, request, queryset):
         with transaction.atomic():
             citizen_to_restore = Citizen.objects.filter(id__in=ids_to_restore)
             updated = citizen_to_restore.update(is_deleted=False)
-            university_relations_to_restore = (
-                CitizenUniversity.objects
-                .filter(citizen_id__in=ids_to_restore)
-                .values_list('id', flat=True)
-            )
-            CitizenUniversity.objects.filter(id__in=university_relations_to_restore).update(is_deleted=False)
+            CitizenUniversity.objects.filter(
+                citizen_id__in=ids_to_restore, is_deleted=True
+            ).update(is_deleted=False)
 
             modeladmin.message_user(
                 request,
