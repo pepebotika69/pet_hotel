@@ -43,7 +43,6 @@ class CitizenUniversityAdmin(admin.ModelAdmin):
     list_display = ['id', 'created_at', 'citizen', 'university', 'is_active', 'is_deleted']
     list_filter = ['is_active', 'is_deleted']
     search_fields = ['citizen__first_name', 'citizen__first_surname', 'university__name']
-    raw_id_fields = ['citizen', 'university']
     autocomplete_fields = ['citizen', 'university']
     fieldsets = (
         ('Relations', {
