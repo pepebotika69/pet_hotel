@@ -6,18 +6,37 @@ from django.utils.translation import gettext_lazy as _
 from apps.embassy.models import CitizenUniversity, Citizen
 
 
-@admin.action(description=_('Restore selected relations'))
+@admin.action(description=_('Restore selected citizens'))
 def restore_citizens(modeladmin, request, queryset):
     """Restore soft-deleted citizens"""
-    updated = queryset.update(is_deleted=False)
-    modeladmin.message_user(
-        request,
-        f'{updated} citizens restored successfully.',
-        messages.SUCCESS
-    )
+    ids_to_restore = list(queryset.values_list('id', flat=True))
+
+    count = len(ids_to_restore)
+    if count > 0:
+        with transaction.atomic():
+            citizen_to_restore = Citizen.objects.filter(id__in=ids_to_restore)
+            updated = citizen_to_restore.update(is_deleted=False)
+            university_relations_to_restore = (
+                CitizenUniversity.objects
+                .filter(citizen_id__in=ids_to_restore)
+                .values_list('id', flat=True)
+            )
+            CitizenUniversity.objects.filter(id__in=university_relations_to_restore).update(is_deleted=False)
+
+            modeladmin.message_user(
+                request,
+                f'{updated} citizens restored successfully.',
+                messages.SUCCESS
+            )
+    else:
+        modeladmin.message_user(
+            request,
+            'No citizens selected for restore.',
+            messages.WARNING
+        )
 
 
-@admin.action(description=_('Permanently delete selected relations'))
+@admin.action(description=_('Permanently delete selected citizens'))
 def hard_delete_citizens(modeladmin, request, queryset):
     """Permanently delete selected citizens"""
     ids_to_delete = list(queryset.values_list('id', flat=True))
@@ -26,13 +45,12 @@ def hard_delete_citizens(modeladmin, request, queryset):
     if count > 0:
         with transaction.atomic():
             Citizen.hard_delete_bulk(ids=ids_to_delete)
-            Citizen.soft_delete_bulk(ids=ids_to_delete)
             university_relations_to_delete = (
                 CitizenUniversity.objects
                 .filter(citizen_id__in=ids_to_delete)
                 .values_list('id', flat=True)
             )
-            CitizenUniversity.soft_delete_bulk(ids=university_relations_to_delete)
+            CitizenUniversity.hard_delete_bulk(ids=university_relations_to_delete)
 
         modeladmin.message_user(
             request,
@@ -52,14 +70,13 @@ class CitizenUniversityInline(admin.TabularInline):
     model = CitizenUniversity
     extra = 1
     fields = ['university', 'enrollment_date', 'graduation_date', 'stop_date', 'is_active']
-    raw_id_fields = ['university']
     autocomplete_fields = ['university']
 
 
 @admin.register(Citizen)
 class CitizenAdmin(admin.ModelAdmin):
     """Admin configuration for Citizen model"""
-    list_display = ['first_name', 'first_surname', 'main_email', 'age', 'is_deleted']
+    list_display = ['id', 'created_at', 'first_name', 'first_surname', 'main_email', 'age', 'is_deleted']
     list_filter = ['birthdate', 'is_deleted']
     search_fields = ['first_name', 'second_name', 'first_surname', 'second_surname', 'main_email']
     fieldsets = (

@@ -5,9 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from apps.embassy.models import CitizenUniversity
 
 
-@admin.action(description=_('Restore selected citizens'))
-def restore_citizens(modeladmin, request, queryset):
-    """Restore soft-deleted citizens"""
+@admin.action(description=_('Restore selected relations'))
+def restore_citizens_universities(modeladmin, request, queryset):
+    """Restore soft-deleted"""
     updated = queryset.update(is_deleted=False)
     modeladmin.message_user(
         request,
@@ -16,9 +16,9 @@ def restore_citizens(modeladmin, request, queryset):
     )
 
 
-@admin.action(description=_('Permanently delete selected citizens'))
-def hard_delete_citizens(modeladmin, request, queryset):
-    """Permanently delete selected citizens"""
+@admin.action(description=_('Permanently delete selected relations'))
+def hard_delete_citizens_universities(modeladmin, request, queryset):
+    """Permanently delete selected"""
     ids_to_delete = list(queryset.values_list('id', flat=True))
 
     count = len(ids_to_delete)
@@ -37,19 +37,10 @@ def hard_delete_citizens(modeladmin, request, queryset):
         )
 
 
-class CitizenUniversityInline(admin.TabularInline):
-    """Inline admin for CitizenUniversity relationships"""
-    model = CitizenUniversity
-    extra = 1
-    fields = ['university', 'enrollment_date', 'graduation_date', 'stop_date', 'is_active']
-    raw_id_fields = ['university']
-    autocomplete_fields = ['university']
-
-
 @admin.register(CitizenUniversity)
 class CitizenUniversityAdmin(admin.ModelAdmin):
     """Admin configuration for CitizenUniversity relation"""
-    list_display = ['citizen', 'university', 'is_active', 'is_deleted']
+    list_display = ['id', 'created_at', 'citizen', 'university', 'is_active', 'is_deleted']
     list_filter = ['is_active', 'is_deleted']
     search_fields = ['citizen__first_name', 'citizen__first_surname', 'university__name']
     raw_id_fields = ['citizen', 'university']
@@ -62,6 +53,7 @@ class CitizenUniversityAdmin(admin.ModelAdmin):
             'fields': ('enrollment_date', 'graduation_date', 'stop_date', 'is_active', 'is_deleted')
         }),
     )
+    actions = [restore_citizens_universities, hard_delete_citizens_universities]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
