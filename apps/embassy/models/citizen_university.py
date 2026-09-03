@@ -15,53 +15,53 @@ class CitizenUniversityManager(models.Manager):
 
 
 class CitizenUniversity(TimestampMixin, SoftDeleteMixin, models.Model):
-    """
-    """
+    """ """
+
     citizen = models.ForeignKey(
-        'Citizen',
+        "Citizen",
         on_delete=models.CASCADE,
-        related_name='citizen_university_relations',
-        verbose_name=_('citizen'),
+        related_name="citizen_university_relations",
+        verbose_name=_("citizen"),
     )
     university = models.ForeignKey(
-        'University',
+        "University",
         on_delete=models.CASCADE,
-        related_name='university_citizen_relations',
-        verbose_name=_('university'),
+        related_name="university_citizen_relations",
+        verbose_name=_("university"),
     )
 
     # Additional fields specific to the relationship
     enrollment_date = models.DateField(
-        help_text=_('Enrollment Date'),
+        help_text=_("Enrollment Date"),
         null=True,
         blank=True,
-        verbose_name=_('enrollment date'),
+        verbose_name=_("enrollment date"),
     )
     graduation_date = models.DateField(
-        help_text=_('Graduation Date'),
+        help_text=_("Graduation Date"),
         null=True,
         blank=True,
-        verbose_name=_('graduation date'),
+        verbose_name=_("graduation date"),
     )
     stop_date = models.DateField(
-        help_text=_('Date when student stopped attending university. May be the same as graduation_date'),
+        help_text=_("Date when student stopped attending university. May be the same as graduation_date"),
         null=True,
         blank=True,
-        verbose_name=_('stop date'),
+        verbose_name=_("stop date"),
     )
     is_active = models.BooleanField(
         default=True,
-        help_text=_('Is Active Student'),
-        verbose_name=_('is active'),
+        help_text=_("Is Active Student"),
+        verbose_name=_("is active"),
     )
 
     objects = CitizenUniversityManager()
 
     class Meta:
-        verbose_name = _('Citizen University Relation')
-        verbose_name_plural = _('Citizen University Relations')
+        verbose_name = _("Citizen University Relation")
+        verbose_name_plural = _("Citizen University Relations")
         indexes = [
-            models.Index(fields=['citizen', 'university']),
+            models.Index(fields=["citizen", "university"]),
         ]
 
     def __str__(self):

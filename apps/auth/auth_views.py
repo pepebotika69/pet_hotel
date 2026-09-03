@@ -34,11 +34,14 @@ def register(request):
     user = User.objects.create_user(username=username, password=password, email=email)
     login(request, user)
 
-    return JsonResponse({
-        "id": user.id,
-        "username": user.username,
-        "email": user.email,
-    }, status=201)
+    return JsonResponse(
+        {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+        },
+        status=201,
+    )
 
 
 @csrf_exempt
@@ -60,11 +63,13 @@ def login_view(request):  # TODO: add limiter
         return JsonResponse({"error": "Invalid credentials"}, status=401)
 
     login(request, user)
-    return JsonResponse({
-        "id": user.id,
-        "username": user.username,
-        "email": user.email,
-    })
+    return JsonResponse(
+        {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+        }
+    )
 
 
 @csrf_exempt  # TODO remove it latter
@@ -78,9 +83,11 @@ def logout_view(request):
 def me(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "Not authenticated"}, status=401)
-    return JsonResponse({
-        "id": request.user.id,
-        "username": request.user.username,
-        "email": request.user.email,
-        "is_staff": request.user.is_staff,
-    })
+    return JsonResponse(
+        {
+            "id": request.user.id,
+            "username": request.user.username,
+            "email": request.user.email,
+            "is_staff": request.user.is_staff,
+        }
+    )

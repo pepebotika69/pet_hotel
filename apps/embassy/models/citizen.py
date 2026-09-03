@@ -23,53 +23,54 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
     """
     Citizen model with personal information and contact details
     """
+
     # FKs
     universities = models.ManyToManyField(
-        'University',
-        related_name='citizens',
+        "University",
+        related_name="citizens",
         blank=True,
         null=True,
-        through='CitizenUniversity',
-        verbose_name=_('universities'),
+        through="CitizenUniversity",
+        verbose_name=_("universities"),
     )
     # Personal Information
     first_name = models.CharField(
         max_length=100,
-        verbose_name=_('first name'),
+        verbose_name=_("first name"),
     )
     second_name = models.CharField(
         max_length=100,
         blank=True,
         null=True,
-        verbose_name=_('second name'),
+        verbose_name=_("second name"),
     )
     first_surname = models.CharField(
         max_length=100,
-        verbose_name=_('first surname'),
+        verbose_name=_("first surname"),
     )
     second_surname = models.CharField(
         max_length=100,
         blank=True,
         null=True,
-        verbose_name=_('second surname'),
+        verbose_name=_("second surname"),
     )
     birthdate = models.DateField(
         blank=True,
         null=True,
-        verbose_name=_('birthdate'),
+        verbose_name=_("birthdate"),
     )
 
     # Contact Information
     main_email = models.EmailField(
         unique=True,
         validators=[EmailValidator()],
-        verbose_name=_('main email'),
+        verbose_name=_("main email"),
     )
     secondary_email = models.EmailField(
         validators=[EmailValidator()],
         blank=True,
         null=True,
-        verbose_name=_('secondary email'),
+        verbose_name=_("secondary email"),
     )
 
     # Phone Numbers
@@ -77,37 +78,37 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
         max_length=20,
         validators=[
             RegexValidator(
-                regex=r'^\+?[0-9\s\-()]+$',
-                message="Phone number must contain only digits, spaces, hyphens, parentheses, and optional +"
+                regex=r"^\+?[0-9\s\-()]+$",
+                message="Phone number must contain only digits, spaces, hyphens, parentheses, and optional +",
             )
         ],
         blank=True,
         null=True,
-        verbose_name=_('phone exterior'),
-        help_text=_('Phone in exterior country'),
+        verbose_name=_("phone exterior"),
+        help_text=_("Phone in exterior country"),
     )
     phone_home_country = models.CharField(
         max_length=20,
         validators=[
             RegexValidator(
-                regex=r'^\+?[0-9\s\-()]+$',
-                message="Phone number must contain only digits, spaces, hyphens, parentheses, and optional +"
+                regex=r"^\+?[0-9\s\-()]+$",
+                message="Phone number must contain only digits, spaces, hyphens, parentheses, and optional +",
             )
         ],
         blank=True,
         null=True,
-        verbose_name=_('phone home country'),
-        help_text=_('Phone in home country'),
+        verbose_name=_("phone home country"),
+        help_text=_("Phone in home country"),
     )
 
     objects = CitizenManager()
 
     class Meta:
-        verbose_name = _('Citizen')
-        verbose_name_plural = _('Citizens')
+        verbose_name = _("Citizen")
+        verbose_name_plural = _("Citizens")
         indexes = [
-            models.Index(fields=['first_surname', 'first_name']),
-            models.Index(fields=['main_email']),
+            models.Index(fields=["first_surname", "first_name"]),
+            models.Index(fields=["main_email"]),
         ]
 
     def __str__(self):
@@ -137,14 +138,16 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
         parts.append(self.first_surname)
         if self.second_surname:
             parts.append(self.second_surname)
-        return ' '.join(parts)
+        return " ".join(parts)
 
     @property
     def age(self):
         """Calculate age based on birthdate"""
         if self.birthdate:
             today = date.today()
-            return today.year - self.birthdate.year - (
-                    (today.month, today.day) < (self.birthdate.month, self.birthdate.day)
+            return (
+                today.year
+                - self.birthdate.year
+                - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
             )
         return None

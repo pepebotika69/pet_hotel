@@ -7,11 +7,13 @@ from apps.auth.decorators import login_required_json
 @login_required_json
 @require_GET
 def hotels(request):
-    return JsonResponse({
-        "hotels": [
-            {"title": "title 1"},
-            {"title": "title 2"},
-            {"title": "title 3"},
-            {"title": "title 4"},
-        ]
-    })
+    return JsonResponse(
+        {
+            "hotels": [
+                {"title": "title 1"},
+                {"title": "title 2"},
+                {"title": "title 3"},
+                {"title": "title 4"},
+            ]
+        }
+    )

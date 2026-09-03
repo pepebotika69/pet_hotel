@@ -7,6 +7,7 @@ class Partner(TimestampMixin, models.Model):
     """
     Partner model representing companies that own pet hotels
     """
+
     # Partner details
     name = models.CharField(
         max_length=255,
@@ -17,12 +18,12 @@ class Partner(TimestampMixin, models.Model):
         verbose_name="Rating",
         help_text="Rating from 1.0 to 5.0",
         null=True,
-        blank=True
+        blank=True,
     )
 
     class Meta:
-        verbose_name = 'Partner'
-        verbose_name_plural = 'Partners'
+        verbose_name = "Partner"
+        verbose_name_plural = "Partners"
 
     def __str__(self):
         return self.name

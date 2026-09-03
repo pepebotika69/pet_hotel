@@ -10,12 +10,12 @@ class Hotel(TimestampMixin, models.Model):
     """
     Pet Hotel model with location, rating, and partner relationship
     """
+
     # Foreign key to Partner
     partner = models.ForeignKey(
         Partner,
         on_delete=models.PROTECT,
-        related_name='hotels',
-
+        related_name="hotels",
     )
 
     # Hotel details
@@ -41,10 +41,10 @@ class Hotel(TimestampMixin, models.Model):
     )
 
     class Meta:
-        verbose_name = 'Hotel'
-        verbose_name_plural = 'Hotels'
+        verbose_name = "Hotel"
+        verbose_name_plural = "Hotels"
         indexes = [
-            models.Index(fields=['city_code', 'region_code']),
+            models.Index(fields=["city_code", "region_code"]),
         ]
 
     def __str__(self):
