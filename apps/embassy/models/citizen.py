@@ -2,6 +2,7 @@ from datetime import date
 
 from django.core.validators import EmailValidator, RegexValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from apps.core.models.mixins import TimestampMixin, SoftDeleteMixin
 
@@ -28,39 +29,47 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
         related_name='citizens',
         blank=True,
         null=True,
-        through='CitizenUniversity'
+        through='CitizenUniversity',
+        verbose_name=_('universities'),
     )
     # Personal Information
     first_name = models.CharField(
         max_length=100,
+        verbose_name=_('first name'),
     )
     second_name = models.CharField(
         max_length=100,
         blank=True,
         null=True,
+        verbose_name=_('second name'),
     )
     first_surname = models.CharField(
         max_length=100,
+        verbose_name=_('first surname'),
     )
     second_surname = models.CharField(
         max_length=100,
         blank=True,
         null=True,
+        verbose_name=_('second surname'),
     )
     birthdate = models.DateField(
         blank=True,
         null=True,
+        verbose_name=_('birthdate'),
     )
 
     # Contact Information
     main_email = models.EmailField(
         unique=True,
         validators=[EmailValidator()],
+        verbose_name=_('main email'),
     )
     secondary_email = models.EmailField(
         validators=[EmailValidator()],
         blank=True,
         null=True,
+        verbose_name=_('secondary email'),
     )
 
     # Phone Numbers
@@ -74,7 +83,8 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
         ],
         blank=True,
         null=True,
-        help_text="Phone in Exterior Country"
+        verbose_name=_('phone exterior'),
+        help_text=_('Phone in exterior country'),
     )
     phone_home_country = models.CharField(
         max_length=20,
@@ -86,14 +96,15 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
         ],
         blank=True,
         null=True,
-        help_text="Phone in Home Country"
+        verbose_name=_('phone home country'),
+        help_text=_('Phone in home country'),
     )
 
     objects = CitizenManager()
 
     class Meta:
-        verbose_name = 'Citizen'
-        verbose_name_plural = 'Citizens'
+        verbose_name = _('Citizen')
+        verbose_name_plural = _('Citizens')
         indexes = [
             models.Index(fields=['first_surname', 'first_name']),
             models.Index(fields=['main_email']),

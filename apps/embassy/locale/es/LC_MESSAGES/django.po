@@ -1,0 +1,218 @@
+# Pet Hotel - Embassy app Spanish translations.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pet_hotel\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-03 14:04+0000\n"
+"PO-Revision-Date: 2026-09-03 14:04+0000\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/embassy/admin/citizen.py:9
+msgid "Restore selected citizens"
+msgstr "Restaurar ciudadanos seleccionados"
+
+#: apps/embassy/admin/citizen.py:25
+#, python-format
+msgid "%d citizens restored successfully."
+msgstr "%d ciudadanos restaurados exitosamente."
+
+#: apps/embassy/admin/citizen.py:31
+msgid "No citizens selected for restore."
+msgstr "No se seleccionaron ciudadanos para restaurar."
+
+#: apps/embassy/admin/citizen.py:36
+msgid "Permanently delete selected citizens"
+msgstr "Eliminar permanentemente los ciudadanos seleccionados"
+
+#: apps/embassy/admin/citizen.py:54
+#, python-format
+msgid "%d citizens permanently deleted."
+msgstr "%d ciudadanos eliminados permanentemente."
+
+#: apps/embassy/admin/citizen.py:60
+msgid "No citizens selected for deletion."
+msgstr "No se seleccionaron ciudadanos para eliminar."
+
+#: apps/embassy/admin/citizen.py:80
+msgid "Personal Information"
+msgstr "Información personal"
+
+#: apps/embassy/admin/citizen.py:83
+msgid "Contact Information"
+msgstr "Información de contacto"
+
+#: apps/embassy/admin/citizen.py:86
+msgid "Phone Numbers"
+msgstr "Números de teléfono"
+
+#: apps/embassy/admin/citizen.py:89 apps/embassy/admin/citizen_university.py:51
+msgid "Status"
+msgstr "Estado"
+
+#: apps/embassy/admin/citizen.py:118
+#, python-format
+msgid "%s was deleted successfully (soft delete)."
+msgstr "%s fue eliminado exitosamente (eliminación lógica)."
+
+#: apps/embassy/admin/citizen.py:136
+#, python-format
+msgid "%d citizens were deleted successfully (soft delete)."
+msgstr "%d ciudadanos fueron eliminados exitosamente (eliminación lógica)."
+
+#: apps/embassy/admin/citizen_university.py:8
+msgid "Restore selected relations"
+msgstr "Restaurar relaciones seleccionadas"
+
+#: apps/embassy/admin/citizen_university.py:19
+msgid "Permanently delete selected relations"
+msgstr "Eliminar permanentemente las relaciones seleccionadas"
+
+#: apps/embassy/admin/citizen_university.py:48
+msgid "Relations"
+msgstr "Relaciones"
+
+#: apps/embassy/admin/university.py:14
+msgid "University Information"
+msgstr "Información de la universidad"
+
+#: apps/embassy/admin/university.py:17
+msgid "Location"
+msgstr "Ubicación"
+
+#: apps/embassy/models/citizen.py:33
+msgid "universities"
+msgstr "universidades"
+
+#: apps/embassy/models/citizen.py:38
+msgid "first name"
+msgstr "primer nombre"
+
+#: apps/embassy/models/citizen.py:44
+msgid "second name"
+msgstr "segundo nombre"
+
+#: apps/embassy/models/citizen.py:48
+msgid "first surname"
+msgstr "primer apellido"
+
+#: apps/embassy/models/citizen.py:54
+msgid "second surname"
+msgstr "segundo apellido"
+
+#: apps/embassy/models/citizen.py:59
+msgid "birthdate"
+msgstr "fecha de nacimiento"
+
+#: apps/embassy/models/citizen.py:66
+msgid "main email"
+msgstr "correo principal"
+
+#: apps/embassy/models/citizen.py:72
+msgid "secondary email"
+msgstr "correo secundario"
+
+#: apps/embassy/models/citizen.py:86
+msgid "phone exterior"
+msgstr "teléfono exterior"
+
+#: apps/embassy/models/citizen.py:87
+msgid "Phone in exterior country"
+msgstr "Teléfono en el país exterior"
+
+#: apps/embassy/models/citizen.py:99
+msgid "phone home country"
+msgstr "teléfono país de origen"
+
+#: apps/embassy/models/citizen.py:100
+msgid "Phone in home country"
+msgstr "Teléfono en el país de origen"
+
+#: apps/embassy/models/citizen.py:106
+msgid "Citizen"
+msgstr "Ciudadano"
+
+#: apps/embassy/models/citizen.py:107
+msgid "Citizens"
+msgstr "Ciudadanos"
+
+#: apps/embassy/models/citizen_university.py:24
+msgid "citizen"
+msgstr "ciudadano"
+
+#: apps/embassy/models/citizen_university.py:30
+msgid "university"
+msgstr "universidad"
+
+#: apps/embassy/models/citizen_university.py:35
+msgid "Enrollment Date"
+msgstr "Fecha de inscripción"
+
+#: apps/embassy/models/citizen_university.py:38
+msgid "enrollment date"
+msgstr "fecha de inscripción"
+
+#: apps/embassy/models/citizen_university.py:41
+msgid "Graduation Date"
+msgstr "Fecha de graduación"
+
+#: apps/embassy/models/citizen_university.py:44
+msgid "graduation date"
+msgstr "fecha de graduación"
+
+#: apps/embassy/models/citizen_university.py:47
+msgid ""
+"Date when student stopped attending university. May be the same as "
+"graduation_date"
+msgstr ""
+"Fecha en que el estudiante dejó de asistir a la universidad. Puede coincidir "
+"con la fecha de graduación"
+
+#: apps/embassy/models/citizen_university.py:50
+msgid "stop date"
+msgstr "fecha de baja"
+
+#: apps/embassy/models/citizen_university.py:54
+msgid "Is Active Student"
+msgstr "Es estudiante activo"
+
+#: apps/embassy/models/citizen_university.py:55
+msgid "is active"
+msgstr "está activo"
+
+#: apps/embassy/models/citizen_university.py:61
+msgid "Citizen University Relation"
+msgstr "Relación ciudadano-universidad"
+
+#: apps/embassy/models/citizen_university.py:62
+msgid "Citizen University Relations"
+msgstr "Relaciones ciudadano-universidad"
+
+#: apps/embassy/models/university.py:16
+msgid "name"
+msgstr "nombre"
+
+#: apps/embassy/models/university.py:21
+msgid "main address"
+msgstr "dirección principal"
+
+#: apps/embassy/models/university.py:27
+msgid "city code"
+msgstr "código de ciudad"
+
+#: apps/embassy/models/university.py:33
+msgid "region code"
+msgstr "código de región"
+
+#: apps/embassy/models/university.py:37
+msgid "University"
+msgstr "Universidad"
+
+#: apps/embassy/models/university.py:38
+msgid "Universities"
+msgstr "Universidades"

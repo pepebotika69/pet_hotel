@@ -45,10 +45,10 @@ class CitizenUniversityAdmin(admin.ModelAdmin):
     search_fields = ['citizen__first_name', 'citizen__first_surname', 'university__name']
     autocomplete_fields = ['citizen', 'university']
     fieldsets = (
-        ('Relations', {
+        (_('Relations'), {
             'fields': ('citizen', 'university')
         }),
-        ('Status', {
+        (_('Status'), {
             'fields': ('enrollment_date', 'graduation_date', 'stop_date', 'is_active', 'is_deleted')
         }),
     )

@@ -22,13 +22,13 @@ def restore_citizens(modeladmin, request, queryset):
 
             modeladmin.message_user(
                 request,
-                f'{updated} citizens restored successfully.',
+                _('%d citizens restored successfully.') % updated,
                 messages.SUCCESS
             )
     else:
         modeladmin.message_user(
             request,
-            'No citizens selected for restore.',
+            _('No citizens selected for restore.'),
             messages.WARNING
         )
 
@@ -51,13 +51,13 @@ def hard_delete_citizens(modeladmin, request, queryset):
 
         modeladmin.message_user(
             request,
-            f'{count} citizens permanently deleted.',
+            _('%d citizens permanently deleted.') % count,
             messages.SUCCESS
         )
     else:
         modeladmin.message_user(
             request,
-            'No citizens selected for deletion.',
+            _('No citizens selected for deletion.'),
             messages.WARNING
         )
 
@@ -77,16 +77,16 @@ class CitizenAdmin(admin.ModelAdmin):
     list_filter = ['birthdate', 'is_deleted']
     search_fields = ['first_name', 'second_name', 'first_surname', 'second_surname', 'main_email']
     fieldsets = (
-        ('Personal Information', {
+        (_('Personal Information'), {
             'fields': ('first_name', 'second_name', 'first_surname', 'second_surname', 'birthdate')
         }),
-        ('Contact Information', {
+        (_('Contact Information'), {
             'fields': ('main_email', 'secondary_email')
         }),
-        ('Phone Numbers', {
+        (_('Phone Numbers'), {
             'fields': ('phone_exterior', 'phone_home_country')
         }),
-        ('Status', {
+        (_('Status'), {
             'fields': ('is_deleted',)
         }),
     )
@@ -115,7 +115,7 @@ class CitizenAdmin(admin.ModelAdmin):
 
         self.message_user(
             request,
-            f'{obj.full_name} was deleted successfully (soft delete).',
+            _('%s was deleted successfully (soft delete).') % obj.full_name,
             messages.SUCCESS
         )
 
@@ -133,6 +133,6 @@ class CitizenAdmin(admin.ModelAdmin):
 
         self.message_user(
             request,
-            f'{len(ids_to_delete)} citizens were deleted successfully (soft delete).',
+            _('%d citizens were deleted successfully (soft delete).') % len(ids_to_delete),
             messages.SUCCESS
         )

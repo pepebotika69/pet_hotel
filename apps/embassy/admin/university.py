@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from apps.embassy.models import University
 
@@ -10,10 +11,10 @@ class UniversityAdmin(admin.ModelAdmin):
     list_filter = ['city_code', 'region_code']
     search_fields = ['name', 'city_code', 'region_code']
     fieldsets = (
-        ('University Information', {
+        (_('University Information'), {
             'fields': ('name', 'main_address')
         }),
-        ('Location', {
+        (_('Location'), {
             'fields': ('city_code', 'region_code')
         }),
     )
