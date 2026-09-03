@@ -1,0 +1,18 @@
+{% extends "admin/app_index.html" %}
+{% load i18n %}
+
+{% block content %}
+    {{ block.super }}
+    <div class="module">
+        <table>
+            <caption>{% trans "Tools" %}</caption>
+            <tr>
+                <th scope="row">
+                    <a href="{% url 'admin:embassy_mailtemplate_send_email' %}">{% trans "Send Email" %}</a>
+                </th>
+                <td class="nocounts"></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
