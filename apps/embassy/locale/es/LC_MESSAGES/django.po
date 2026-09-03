@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pet_hotel\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-03 14:04+0000\n"
+"POT-Creation-Date: 2026-09-03 16:19+0000\n"
 "PO-Revision-Date: 2026-09-03 14:04+0000\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -13,131 +13,136 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/embassy/admin/citizen.py:9
+#: apps/embassy/admin/citizen.py:8
 msgid "Restore selected citizens"
 msgstr "Restaurar ciudadanos seleccionados"
 
-#: apps/embassy/admin/citizen.py:25
+#: apps/embassy/admin/citizen.py:20
 #, python-format
 msgid "%d citizens restored successfully."
 msgstr "%d ciudadanos restaurados exitosamente."
 
-#: apps/embassy/admin/citizen.py:31
+#: apps/embassy/admin/citizen.py:22
 msgid "No citizens selected for restore."
 msgstr "No se seleccionaron ciudadanos para restaurar."
 
-#: apps/embassy/admin/citizen.py:36
+#: apps/embassy/admin/citizen.py:25
 msgid "Permanently delete selected citizens"
 msgstr "Eliminar permanentemente los ciudadanos seleccionados"
 
-#: apps/embassy/admin/citizen.py:54
+#: apps/embassy/admin/citizen.py:39
 #, python-format
 msgid "%d citizens permanently deleted."
 msgstr "%d ciudadanos eliminados permanentemente."
 
-#: apps/embassy/admin/citizen.py:60
+#: apps/embassy/admin/citizen.py:41
 msgid "No citizens selected for deletion."
 msgstr "No se seleccionaron ciudadanos para eliminar."
 
-#: apps/embassy/admin/citizen.py:80
+#: apps/embassy/admin/citizen.py:62
 msgid "Personal Information"
 msgstr "Información personal"
 
-#: apps/embassy/admin/citizen.py:83
+#: apps/embassy/admin/citizen.py:65
 msgid "Contact Information"
 msgstr "Información de contacto"
 
-#: apps/embassy/admin/citizen.py:86
+#: apps/embassy/admin/citizen.py:66
 msgid "Phone Numbers"
 msgstr "Números de teléfono"
 
-#: apps/embassy/admin/citizen.py:89 apps/embassy/admin/citizen_university.py:51
+#: apps/embassy/admin/citizen.py:67 apps/embassy/admin/citizen_university.py:37
 msgid "Status"
 msgstr "Estado"
 
-#: apps/embassy/admin/citizen.py:118
+#: apps/embassy/admin/citizen.py:90
 #, python-format
 msgid "%s was deleted successfully (soft delete)."
 msgstr "%s fue eliminado exitosamente (eliminación lógica)."
 
-#: apps/embassy/admin/citizen.py:136
+#: apps/embassy/admin/citizen.py:103
 #, python-format
 msgid "%d citizens were deleted successfully (soft delete)."
 msgstr "%d ciudadanos fueron eliminados exitosamente (eliminación lógica)."
 
-#: apps/embassy/admin/citizen_university.py:8
+#: apps/embassy/admin/citizen_university.py:7
 msgid "Restore selected relations"
 msgstr "Restaurar relaciones seleccionadas"
 
-#: apps/embassy/admin/citizen_university.py:19
+#: apps/embassy/admin/citizen_university.py:14
 msgid "Permanently delete selected relations"
 msgstr "Eliminar permanentemente las relaciones seleccionadas"
 
-#: apps/embassy/admin/citizen_university.py:48
+#: apps/embassy/admin/citizen_university.py:36
 msgid "Relations"
 msgstr "Relaciones"
 
-#: apps/embassy/admin/university.py:14
+#: apps/embassy/admin/mail_template.py:12
+#: apps/embassy/models/mail_template.py:18
+msgid "Mail Template"
+msgstr "Plantilla de correo"
+
+#: apps/embassy/admin/university.py:15
 msgid "University Information"
 msgstr "Información de la universidad"
 
-#: apps/embassy/admin/university.py:17
+#: apps/embassy/admin/university.py:16
 msgid "Location"
 msgstr "Ubicación"
 
-#: apps/embassy/models/citizen.py:33
+#: apps/embassy/models/citizen.py:34
 msgid "universities"
 msgstr "universidades"
 
-#: apps/embassy/models/citizen.py:38
+#: apps/embassy/models/citizen.py:39
 msgid "first name"
 msgstr "primer nombre"
 
-#: apps/embassy/models/citizen.py:44
+#: apps/embassy/models/citizen.py:45
 msgid "second name"
 msgstr "segundo nombre"
 
-#: apps/embassy/models/citizen.py:48
+#: apps/embassy/models/citizen.py:49
 msgid "first surname"
 msgstr "primer apellido"
 
-#: apps/embassy/models/citizen.py:54
+#: apps/embassy/models/citizen.py:55
 msgid "second surname"
 msgstr "segundo apellido"
 
-#: apps/embassy/models/citizen.py:59
+#: apps/embassy/models/citizen.py:60
 msgid "birthdate"
 msgstr "fecha de nacimiento"
 
-#: apps/embassy/models/citizen.py:66
+#: apps/embassy/models/citizen.py:67
 msgid "main email"
 msgstr "correo principal"
 
-#: apps/embassy/models/citizen.py:72
+#: apps/embassy/models/citizen.py:73
 msgid "secondary email"
 msgstr "correo secundario"
 
-#: apps/embassy/models/citizen.py:86
+#: apps/embassy/models/citizen.py:87
 msgid "phone exterior"
 msgstr "teléfono exterior"
 
-#: apps/embassy/models/citizen.py:87
+#: apps/embassy/models/citizen.py:88
 msgid "Phone in exterior country"
 msgstr "Teléfono en el país exterior"
 
-#: apps/embassy/models/citizen.py:99
+#: apps/embassy/models/citizen.py:100
 msgid "phone home country"
 msgstr "teléfono país de origen"
 
-#: apps/embassy/models/citizen.py:100
+#: apps/embassy/models/citizen.py:101
 msgid "Phone in home country"
 msgstr "Teléfono en el país de origen"
 
-#: apps/embassy/models/citizen.py:106
+#: apps/embassy/models/citizen.py:107
 msgid "Citizen"
 msgstr "Ciudadano"
 
-#: apps/embassy/models/citizen.py:107
+#: apps/embassy/models/citizen.py:108
 msgid "Citizens"
 msgstr "Ciudadanos"
 
@@ -193,26 +198,34 @@ msgstr "Relación ciudadano-universidad"
 msgid "Citizen University Relations"
 msgstr "Relaciones ciudadano-universidad"
 
-#: apps/embassy/models/university.py:16
+#: apps/embassy/models/mail_template.py:11 apps/embassy/models/university.py:17
 msgid "name"
 msgstr "nombre"
 
-#: apps/embassy/models/university.py:21
+#: apps/embassy/models/mail_template.py:14
+msgid "html"
+msgstr "HTML"
+
+#: apps/embassy/models/mail_template.py:19
+msgid "Mail Templates"
+msgstr "Plantillas de correo"
+
+#: apps/embassy/models/university.py:22
 msgid "main address"
 msgstr "dirección principal"
 
-#: apps/embassy/models/university.py:27
+#: apps/embassy/models/university.py:28
 msgid "city code"
 msgstr "código de ciudad"
 
-#: apps/embassy/models/university.py:33
+#: apps/embassy/models/university.py:34
 msgid "region code"
 msgstr "código de región"
 
-#: apps/embassy/models/university.py:37
+#: apps/embassy/models/university.py:38
 msgid "University"
 msgstr "Universidad"
 
-#: apps/embassy/models/university.py:38
+#: apps/embassy/models/university.py:39
 msgid "Universities"
 msgstr "Universidades"

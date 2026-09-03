@@ -18,6 +18,12 @@ fix:
 	$(RUFF_DOCKER) check --fix .
 	$(RUFF_DOCKER) format .
 
+migrate:
+	$(WEB) python manage.py migrate
+
+makemigrations:
+	$(WEB) python manage.py makemigrations
+
 makemessages:
 	mkdir -p apps/embassy/locale
 	$(WEB) python manage.py makemessages -l es -i staticfiles
