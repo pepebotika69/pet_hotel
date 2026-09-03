@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from apps.auth.auth_views import csrf_token, register, login_view, logout_view, me
+from apps.auth.auth_views import csrf_token, login_view, logout_view, me, register
 from apps.hotel.views.views import hotels
 
 urlpatterns = [

@@ -1,1 +1,1 @@
-from.session import SessionAdmin
+from .session import SessionAdmin as SessionAdmin

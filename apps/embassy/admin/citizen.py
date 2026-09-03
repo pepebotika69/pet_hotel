@@ -1,9 +1,8 @@
-from django.contrib import admin
-from django.contrib import messages
+from django.contrib import admin, messages
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
-from apps.embassy.models import CitizenUniversity, Citizen
+from apps.embassy.models import Citizen, CitizenUniversity
 
 
 @admin.action(description=_('Restore selected citizens'))

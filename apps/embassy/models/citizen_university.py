@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.models.mixins import TimestampMixin, SoftDeleteMixin
+from apps.core.models.mixins import SoftDeleteMixin, TimestampMixin
 
 
 class CitizenUniversityManager(models.Manager):

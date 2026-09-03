@@ -1,3 +1,3 @@
-from .citizen import CitizenAdmin
-from .citizen_university import CitizenUniversityAdmin
-from .university import UniversityAdmin
+from .citizen import CitizenAdmin as CitizenAdmin
+from .citizen_university import CitizenUniversityAdmin as CitizenUniversityAdmin
+from .university import UniversityAdmin as UniversityAdmin
