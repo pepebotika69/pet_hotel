@@ -8,14 +8,14 @@ from apps.embassy.models import Citizen, MailTemplate
 class SendEmailForm(forms.Form):
     mail_template = forms.ModelChoiceField(
         queryset=MailTemplate.objects.all(),
-        label=_('Mail template'),
+        label=_("Mail template"),
         empty_label=None,
     )
     citizens = forms.ModelMultipleChoiceField(
         queryset=Citizen.objects.not_deleted(),
         widget=FilteredSelectMultiple(
-            _('citizens'),
+            _("citizens"),
             is_stacked=False,
         ),
-        label=_('Citizens'),
+        label=_("Citizens"),
     )

@@ -8,15 +8,15 @@ class MailTemplate(TimestampMixin, models.Model):
     name = models.CharField(
         max_length=255,
         unique=True,
-        verbose_name=_('name'),
+        verbose_name=_("name"),
     )
     html = models.TextField(
-        verbose_name=_('html'),
+        verbose_name=_("html"),
     )
 
     class Meta:
-        verbose_name = _('Mail Template')
-        verbose_name_plural = _('Mail Templates')
+        verbose_name = _("Mail Template")
+        verbose_name_plural = _("Mail Templates")
 
     def __str__(self):
         return self.name

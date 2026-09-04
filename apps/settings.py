@@ -3,7 +3,7 @@ from pathlib import Path
 
 import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +30,7 @@ elif ENVIRONMENT == ENVIRONMENT_PROD:
 else:
     raise ValueError("Unknown environment")
 
-# HEROKU_APP_DEFAULT_DOMAIN_NAME = os.environ.get('HEROKU_APP_DEFAULT_DOMAIN_NAME')
+# HEROKU_APP_DEFAULT_DOMAIN_NAME = os.environ.get("HEROKU_APP_DEFAULT_DOMAIN_NAME")
 # if HEROKU_APP_DEFAULT_DOMAIN_NAME:
 #    ALLOWED_HOSTS.append(f"HEROKU_APP_DEFAULT_DOMAIN_NAME")
 
@@ -38,7 +38,6 @@ if ENVIRONMENT == ENVIRONMENT_DEV:
     CSRF_TRUSTED_ORIGINS = [
         "http://localhost:8088",
         "http://localhost:3000",
-        # "http://localhost:8087",
         "http://0.0.0.0:8088",
         "http://0.0.0.0:3000",
         "http://127.0.0.1:8088",
@@ -174,7 +173,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-# LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = "en"
 
 LANGUAGES = [
@@ -202,3 +200,12 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# email
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

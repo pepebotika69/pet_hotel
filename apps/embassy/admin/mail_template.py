@@ -10,29 +10,25 @@ from apps.embassy.models import MailTemplate
 
 @admin.register(MailTemplate)
 class MailTemplateAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'created_at', 'modified_at']
-    search_fields = ['name']
-    fieldsets = (
-        (_('Mail Template'), {
-            'fields': ('name', 'html')
-        }),
-    )
+    list_display = ["id", "name", "created_at", "modified_at"]
+    search_fields = ["name"]
+    fieldsets = ((_("Mail Template"), {"fields": ("name", "html")}),)
 
     def get_urls(self):
         return [
             path(
-                'send-email/',
+                "send-email/",
                 self.admin_site.admin_view(self.send_email_view),
-                name='embassy_mailtemplate_send_email',
+                name="embassy_mailtemplate_send_email",
             ),
         ] + super().get_urls()
 
     def send_email_view(self, request):
-        if request.method == 'POST':
+        if request.method == "POST":
             form = SendEmailForm(request.POST)
             if form.is_valid():
-                template = form.cleaned_data['mail_template']
-                citizens = form.cleaned_data['citizens']
+                template = form.cleaned_data["mail_template"]
+                citizens = form.cleaned_data["citizens"]
                 sent = 0
                 failed = 0
                 for citizen in citizens:
@@ -42,26 +38,26 @@ class MailTemplateAdmin(admin.ModelAdmin):
                             body=template.html,
                             to=[citizen.main_email],
                         )
-                        email.content_subtype = 'html'
+                        email.content_subtype = "html"
                         email.send()
                         sent += 1
                     except Exception:
                         failed += 1
 
                 if sent:
-                    self.message_user(request, _('%d emails sent successfully.') % sent, messages.SUCCESS)
+                    self.message_user(request, _("%d emails sent successfully.") % sent, messages.SUCCESS)
                 if failed:
-                    self.message_user(request, _('%d emails failed to send.') % failed, messages.ERROR)
+                    self.message_user(request, _("%d emails failed to send.") % failed, messages.ERROR)
 
-                return redirect(reverse('admin:embassy_mailtemplate_changelist'))
+                return redirect(reverse("admin:embassy_mailtemplate_changelist"))
         else:
             form = SendEmailForm()
 
         context = {
             **self.admin_site.each_context(request),
-            'title': _('Send Email'),
-            'form': form,
-            'opts': self.model._meta,
-            'media': self.media + form.media,
+            "title": _("Send Email"),
+            "form": form,
+            "opts": self.model._meta,
+            "media": self.media + form.media,
         }
-        return render(request, 'admin/embassy/send_email.html', context)
+        return render(request, "admin/embassy/send_email.html", context)
