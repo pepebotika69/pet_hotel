@@ -32,7 +32,7 @@ class MailTemplateAdmin(admin.ModelAdmin):
 
     def send_email_view(self, request):
         if request.method == "POST":
-            form = SendEmailForm(request.POST)
+            form = SendEmailForm(request.POST, user=request.user)
             if form.is_valid():
                 template = form.cleaned_data["mail_template"]
                 recipient_emails = form.get_recipient_emails()
@@ -69,7 +69,7 @@ class MailTemplateAdmin(admin.ModelAdmin):
 
                 return redirect(reverse("admin:mail_mailtemplate_changelist"))
         else:
-            form = SendEmailForm()
+            form = SendEmailForm(user=request.user)
 
         source_to_ct_id = {
             source: ContentType.objects.get_for_model(model_class).id
