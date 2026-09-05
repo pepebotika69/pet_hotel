@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -5,6 +6,11 @@ from apps.core.models.mixins import TimestampMixin
 
 
 class MailTemplate(TimestampMixin, models.Model):
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.PROTECT,
+        verbose_name=_("content type"),
+    )
     name = models.CharField(
         max_length=255,
         unique=True,

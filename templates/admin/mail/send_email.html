@@ -13,10 +13,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>{% trans "Send Email" %}</h1>
 
 <form method="post">
     {% csrf_token %}
+
     <div class="form-row">
         <div>
             <label for="{{ form.mail_template.id_for_label }}">{{ form.mail_template.label }}</label>
@@ -26,20 +26,88 @@
             {% endif %}
         </div>
     </div>
+
     <div class="form-row">
         <div>
-            <label>{{ form.citizens.label }}</label>
-            {{ form.citizens }}
-            {% if form.citizens.errors %}
-                <ul class="errorlist">{% for e in form.citizens.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+            <label>{{ form.recipient_source.label }}</label>
+            {{ form.recipient_source }}
+            {% if form.recipient_source.errors %}
+                <ul class="errorlist">{% for e in form.recipient_source.errors %}<li>{{ e }}</li>{% endfor %}</ul>
             {% endif %}
         </div>
     </div>
+
+    <div class="form-row" id="citizen-recipients-row">
+        <div>
+            <label>{{ form.citizen_recipients.label }}</label>
+            {{ form.citizen_recipients }}
+            {% if form.citizen_recipients.errors %}
+                <ul class="errorlist">{% for e in form.citizen_recipients.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-row" id="user-recipients-row">
+        <div>
+            <label>{{ form.user_recipients.label }}</label>
+            {{ form.user_recipients }}
+            {% if form.user_recipients.errors %}
+                <ul class="errorlist">{% for e in form.user_recipients.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="submit-row">
         <input type="submit" value="{% trans "Send" %}" class="default">
         <a href="{% url 'admin:mail_mailtemplate_changelist' %}">{% trans "Cancel" %}</a>
     </div>
 </form>
 
+{{ templates_data|json_script:"templates-data" }}
+{{ source_to_ct_id|json_script:"source-ct-data" }}
+
 {{ media }}
+
+<script>
+(function () {
+    var templates = JSON.parse(document.getElementById('templates-data').textContent);
+    var sourceToCt = JSON.parse(document.getElementById('source-ct-data').textContent);
+
+    function updateTemplates() {
+        var checked = document.querySelector('input[name="recipient_source"]:checked');
+        if (!checked) return;
+        var ctId = sourceToCt[checked.value];
+        var select = document.getElementById('id_mail_template');
+        var currentVal = select.value;
+
+        select.innerHTML = '';
+        var filtered = templates.filter(function (t) { return t.content_type_id === ctId; });
+        filtered.forEach(function (t) {
+            var opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = t.name;
+            if (String(t.id) === String(currentVal)) { opt.selected = true; }
+            select.appendChild(opt);
+        });
+    }
+
+    function updateRecipientVisibility() {
+        var checked = document.querySelector('input[name="recipient_source"]:checked');
+        if (!checked) return;
+        var source = checked.value;
+        document.getElementById('citizen-recipients-row').style.display = source === 'citizen' ? '' : 'none';
+        document.getElementById('user-recipients-row').style.display = source === 'user' ? '' : 'none';
+    }
+
+    document.querySelectorAll('input[name="recipient_source"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            updateTemplates();
+            updateRecipientVisibility();
+        });
+    });
+
+    updateTemplates();
+    updateRecipientVisibility();
+}());
+</script>
 {% endblock %}
