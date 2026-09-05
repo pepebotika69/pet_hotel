@@ -56,13 +56,14 @@ class SendEmailForm(forms.Form):
         model_class = RECIPIENT_SOURCE_MODELS.get(source)
         if model_class:
             ct = ContentType.objects.get_for_model(model_class)
-            self.fields["mail_template"].queryset = MailTemplate.objects.filter(content_type=ct)
+            qs = MailTemplate.objects.filter(content_type=ct)
+            if user is not None and not user.is_superuser:
+                qs = qs.filter(groups__in=user.groups.all()).distinct()
+            self.fields["mail_template"].queryset = qs
 
         if user is not None and not user.is_superuser:
             self.fields["user_recipients"].queryset = (
-                self.fields["user_recipients"].queryset
-                .filter(groups__in=user.groups.all())
-                .distinct()
+                self.fields["user_recipients"].queryset.filter(groups__in=user.groups.all()).distinct()
             )
 
     def clean(self):

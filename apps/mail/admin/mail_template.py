@@ -13,13 +13,26 @@ from apps.mail.models import MailTemplate, SentEmail, SentEmailStatus
 class MailTemplateAdmin(admin.ModelAdmin):
     list_display = ["id", "name", "content_type", "created_at", "modified_at"]
     search_fields = ["name"]
-    fieldsets = ((_("Mail Template"), {"fields": ("content_type", "name", "html")}),)
+    fieldsets = ((_("Mail Template"), {"fields": ("content_type", "name", "html", "groups")}),)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(groups__in=request.user.groups.all()).distinct()
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         ct_ids = [ContentType.objects.get_for_model(m).id for m in RECIPIENT_SOURCE_MODELS.values()]
         form.base_fields["content_type"].queryset = ContentType.objects.filter(id__in=ct_ids)
+        if not request.user.is_superuser:
+            form.base_fields["groups"].queryset = request.user.groups.all()
         return form
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if not change and not request.user.is_superuser:
+            obj.groups.set(request.user.groups.all())
 
     def get_urls(self):
         return [
@@ -75,7 +88,10 @@ class MailTemplateAdmin(admin.ModelAdmin):
             source: ContentType.objects.get_for_model(model_class).id
             for source, model_class in RECIPIENT_SOURCE_MODELS.items()
         }
-        templates_data = list(MailTemplate.objects.values("id", "name", "content_type_id"))
+        templates_qs = MailTemplate.objects.all()
+        if not request.user.is_superuser:
+            templates_qs = templates_qs.filter(groups__in=request.user.groups.all()).distinct()
+        templates_data = list(templates_qs.values("id", "name", "content_type_id"))
 
         context = {
             **self.admin_site.each_context(request),
