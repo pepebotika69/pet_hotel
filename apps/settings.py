@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "apps.embassy",
+    "apps.mail",
     "apps.hotel",
     "apps.auth",
 ]

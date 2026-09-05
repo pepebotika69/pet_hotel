@@ -12,20 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='MailTemplate',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255, unique=True, verbose_name='name')),
-                ('html', models.TextField(verbose_name='html')),
-            ],
-            options={
-                'verbose_name': 'Mail Template',
-                'verbose_name_plural': 'Mail Templates',
-            },
-        ),
         migrations.AlterField(
             model_name='citizen',
             name='birthdate',

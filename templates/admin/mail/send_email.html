@@ -7,7 +7,7 @@
 <div class="breadcrumbs">
     <a href="{% url 'admin:index' %}">{% trans "Home" %}</a> &rsaquo;
     <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a> &rsaquo;
-    <a href="{% url 'admin:embassy_mailtemplate_changelist' %}">{% trans "Mail Templates" %}</a> &rsaquo;
+    <a href="{% url 'admin:mail_mailtemplate_changelist' %}">{% trans "Mail Templates" %}</a> &rsaquo;
     {% trans "Send Email" %}
 </div>
 {% endblock %}
@@ -37,7 +37,7 @@
     </div>
     <div class="submit-row">
         <input type="submit" value="{% trans "Send" %}" class="default">
-        <a href="{% url 'admin:embassy_mailtemplate_changelist' %}">{% trans "Cancel" %}</a>
+        <a href="{% url 'admin:mail_mailtemplate_changelist' %}">{% trans "Cancel" %}</a>
     </div>
 </form>
 

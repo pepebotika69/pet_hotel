@@ -5,7 +5,7 @@ from django.urls import path, reverse
 from django.utils.translation import gettext_lazy as _
 
 from apps.embassy.forms.send_email_form import SendEmailForm
-from apps.embassy.models import MailTemplate
+from apps.mail.models import MailTemplate, SentEmail, SentEmailStatus
 
 
 @admin.register(MailTemplate)
@@ -19,7 +19,7 @@ class MailTemplateAdmin(admin.ModelAdmin):
             path(
                 "send-email/",
                 self.admin_site.admin_view(self.send_email_view),
-                name="embassy_mailtemplate_send_email",
+                name="mail_mailtemplate_send_email",
             ),
         ] + super().get_urls()
 
@@ -40,8 +40,19 @@ class MailTemplateAdmin(admin.ModelAdmin):
                         )
                         email.content_subtype = "html"
                         email.send()
+                        SentEmail.objects.create(
+                            to=citizen.main_email,
+                            status=SentEmailStatus.SENT,
+                            template=template,
+                        )
                         sent += 1
-                    except Exception:
+                    except Exception as e:
+                        SentEmail.objects.create(
+                            to=citizen.main_email,
+                            status=SentEmailStatus.FAILED,
+                            template=template,
+                            error=str(e),
+                        )
                         failed += 1
 
                 if sent:
@@ -49,7 +60,7 @@ class MailTemplateAdmin(admin.ModelAdmin):
                 if failed:
                     self.message_user(request, _("%d emails failed to send.") % failed, messages.ERROR)
 
-                return redirect(reverse("admin:embassy_mailtemplate_changelist"))
+                return redirect(reverse("admin:mail_mailtemplate_changelist"))
         else:
             form = SendEmailForm()
 
@@ -60,4 +71,4 @@ class MailTemplateAdmin(admin.ModelAdmin):
             "opts": self.model._meta,
             "media": self.media + form.media,
         }
-        return render(request, "admin/embassy/send_email.html", context)
+        return render(request, "admin/mail/send_email.html", context)

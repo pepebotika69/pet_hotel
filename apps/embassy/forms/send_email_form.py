@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-from apps.embassy.models import Citizen, MailTemplate
+from apps.embassy.models import Citizen
+from apps.mail.models import MailTemplate
 
 
 class SendEmailForm(forms.Form):
