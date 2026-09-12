@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.translation import gettext_lazy as _
 
-from apps.mail.forms.send_email_form import RECIPIENT_SOURCE_MODELS, SendEmailForm
+from apps.mail.forms.send_email_form import GROUP_CONTENT_TYPE_MODELS, RECIPIENT_SOURCE_MODELS, SendEmailForm
 from apps.mail.models import MailTemplate, SentEmail, SentEmailStatus
 
 
@@ -23,7 +23,18 @@ class MailTemplateAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        ct_ids = [ContentType.objects.get_for_model(m).id for m in RECIPIENT_SOURCE_MODELS.values()]
+        if request.user.is_superuser:
+            allowed_models = list(RECIPIENT_SOURCE_MODELS.values())
+        else:
+            user_group_names = set(request.user.groups.values_list("name", flat=True))
+            seen = []
+            for group_name, models in GROUP_CONTENT_TYPE_MODELS.items():
+                if group_name in user_group_names:
+                    for m in models:
+                        if m not in seen:
+                            seen.append(m)
+            allowed_models = seen
+        ct_ids = [ContentType.objects.get_for_model(m).id for m in allowed_models]
         form.base_fields["content_type"].queryset = ContentType.objects.filter(id__in=ct_ids)
         if not request.user.is_superuser:
             form.base_fields["groups"].queryset = request.user.groups.all()

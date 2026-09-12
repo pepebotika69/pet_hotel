@@ -19,6 +19,11 @@ RECIPIENT_SOURCE_MODELS = {
     RecipientSource.USER: get_user_model(),
 }
 
+GROUP_CONTENT_TYPE_MODELS = {
+    "pet_hotel_group": [get_user_model()],
+    "embassy_group": [get_user_model(), Citizen],
+}
+
 
 class UserWithEmailChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
