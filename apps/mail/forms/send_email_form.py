@@ -57,6 +57,17 @@ class SendEmailForm(forms.Form):
 
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
+        if user is not None and not user.is_superuser:
+            user_group_names = set(user.groups.values_list("name", flat=True))
+            allowed_models = []
+            for gname, models in GROUP_CONTENT_TYPE_MODELS.items():
+                if gname in user_group_names:
+                    for m in models:
+                        if m not in allowed_models:
+                            allowed_models.append(m)
+            allowed_sources = [s for s, m in RECIPIENT_SOURCE_MODELS.items() if m in allowed_models]
+            self.fields["recipient_source"].choices = [(s.value, _(s.value)) for s in allowed_sources]
+
         source = (self.data or {}).get("recipient_source") or RecipientSource.CITIZEN
         model_class = RECIPIENT_SOURCE_MODELS.get(source)
         if model_class:
