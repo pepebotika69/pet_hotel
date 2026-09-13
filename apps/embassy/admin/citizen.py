@@ -54,13 +54,13 @@ class CitizenUniversityInline(admin.TabularInline):
 class CitizenAdmin(admin.ModelAdmin):
     """Admin configuration for Citizen model"""
 
-    list_display = ["id", "created_at", "first_name", "first_surname", "main_email", "age", "is_deleted"]
+    list_display = ["id", "created_at", "id_number", "first_name", "first_surname", "main_email", "age", "is_deleted"]
     list_filter = ["birthdate", "is_deleted"]
     search_fields = ["first_name", "second_name", "first_surname", "second_surname", "main_email"]
     fieldsets = (
         (
             _("Personal Information"),
-            {"fields": ("first_name", "second_name", "first_surname", "second_surname", "birthdate")},
+            {"fields": ("id_number", "first_name", "second_name", "first_surname", "second_surname", "birthdate")},
         ),
         (_("Contact Information"), {"fields": ("main_email", "secondary_email")}),
         (_("Phone Numbers"), {"fields": ("phone_exterior", "phone_home_country")}),

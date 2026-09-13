@@ -34,6 +34,12 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
         verbose_name=_("universities"),
     )
     # Personal Information
+    id_number = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        verbose_name=_("ID number"),
+    )
     first_name = models.CharField(
         max_length=100,
         verbose_name=_("first name"),
