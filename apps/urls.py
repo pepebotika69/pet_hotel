@@ -9,6 +9,6 @@ urlpatterns = [
     path("api/", include("apps.hotel.urls")),
     path("api/", include("apps.embassy.urls")),
     path("api/auth/", include("apps.auth.urls")),
-    path("citizen/register/", citizen_register, name="citizen_register"),
-    path("citizen/register/success/", citizen_register_success, name="citizen_register_success"),
+    path("embassy/citizen/register/", citizen_register, name="citizen_register"),
+    path("embassy/citizen/register/success/", citizen_register_success, name="citizen_register_success"),
 ]
