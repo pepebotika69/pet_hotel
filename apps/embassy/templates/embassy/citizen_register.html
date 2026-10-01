@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Registration</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 16px; color: #111; }
+    h1 { margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 500; margin-bottom: 4px; }
+    input { width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 1rem; }
+    input:focus { outline: 2px solid #6366f1; border-color: transparent; }
+    .errorlist { color: #b91c1c; font-size: 0.875rem; margin: 4px 0 0; padding: 0; list-style: none; }
+    .required { color: #b91c1c; }
+    button[type=submit] { background: #6366f1; color: #fff; border: none; padding: 10px 24px; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+    button[type=submit]:hover { background: #4f46e5; }
+  </style>
+</head>
+<body>
+  <h1>Citizen Registration</h1>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">
+          {{ field.label }}{% if field.field.required %} <span class="required">*</span>{% endif %}
+        </label>
+        {{ field }}
+        {% if field.errors %}
+          <ul class="errorlist">
+            {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>
