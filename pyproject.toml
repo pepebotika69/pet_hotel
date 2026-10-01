@@ -1,3 +1,23 @@
+[project]
+name = "pet-hotel"
+version = "0.1.0"
+requires-python = "==3.11.*"
+dependencies = [
+    "Django==5.2.17",
+    "dj-database-url==3.1.2",
+    "django-redis==7.0.0",
+    "psycopg2-binary==2.9.12",
+    "whitenoise==6.12.0",
+    "gunicorn==23.0.0",
+    "django-cors-headers==4.9.0",
+    "openpyxl==3.1.5",
+]
+
+[dependency-groups]
+dev = [
+    "ruff==0.9.10",
+]
+
 [tool.ruff]
 target-version = "py311"
 line-length = 119

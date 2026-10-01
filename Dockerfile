@@ -10,8 +10,10 @@ WORKDIR /opt/apps
 
 RUN apt-get update && apt-get install -y gettext && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+COPY pyproject.toml uv.lock ./
+RUN uv export --frozen --no-dev | uv pip install --system -r /dev/stdin
 
 COPY . .
 RUN python manage.py collectstatic --noinput
