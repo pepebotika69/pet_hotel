@@ -20,6 +20,7 @@ class CitizenManager(models.Manager):
 
 
 class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
+    # TODO add to group when creating if not in group
     """
     Citizen model with personal information and contact details
     """
@@ -35,6 +36,7 @@ class Citizen(TimestampMixin, SoftDeleteMixin, models.Model):
     )
     # Personal Information
     id_number = models.CharField(
+        unique=True,
         max_length=50,
         blank=True,
         null=True,

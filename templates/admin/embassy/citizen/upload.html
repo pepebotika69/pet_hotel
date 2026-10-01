@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Upload Citizens" %}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans "Home" %}</a> &rsaquo;
+    <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a> &rsaquo;
+    <a href="{% url 'admin:embassy_citizen_changelist' %}">{% trans "Citizens" %}</a> &rsaquo;
+    {% trans "Upload Excel" %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom:20px">
+    <h2>{% trans "Expected columns (first row = headers)" %}</h2>
+    <table style="border-collapse:collapse">
+        <thead>
+            <tr>
+                <th style="border:1px solid #ccc;padding:4px 12px;text-align:left">{% trans "Column name" %}</th>
+                <th style="border:1px solid #ccc;padding:4px 12px;text-align:left">{% trans "Notes" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for col in expected_columns %}
+            <tr>
+                <td style="border:1px solid #eee;padding:4px 12px;font-family:monospace">{{ col }}</td>
+                <td style="border:1px solid #eee;padding:4px 12px;color:#555">
+                    {% if col == "main_email" %}
+                        <strong>{% trans "Required — unique key for create/update" %}</strong>
+                    {% elif col == "birthdate" %}
+                        {% trans "YYYY-MM-DD or Excel date cell" %}
+                    {% elif col == "id_number" %}
+                        {% trans "Must be unique across all citizens" %}
+                    {% else %}
+                        {% trans "Optional" %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div>
+            <label for="{{ form.file.id_for_label }}">{{ form.file.label }}</label>
+            {{ form.file }}
+            {% if form.file.help_text %}
+                <p class="help">{{ form.file.help_text }}</p>
+            {% endif %}
+            {% if form.file.errors %}
+                <ul class="errorlist">{% for e in form.file.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if form.non_field_errors %}
+        <ul class="errorlist">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <div class="submit-row">
+        <input type="submit" value="{% trans "Upload" %}" class="default">
+        <a href="{% url 'admin:embassy_citizen_changelist' %}">{% trans "Cancel" %}</a>
+    </div>
+</form>
+
+{{ media }}
+{% endblock %}
