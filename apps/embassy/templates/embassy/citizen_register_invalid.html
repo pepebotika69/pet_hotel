@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Link Invalid</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 16px; color: #111; }
+    .card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 32px; margin-top: 32px; }
+    h1 { margin-bottom: 16px; color: #b91c1c; }
+    p { margin: 0; line-height: 1.6; color: #374151; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    {% if reason == "used" %}
+      <h1>Link Already Used</h1>
+      <p>This registration link has already been used. Each link can only be used once. Please contact us to request a new registration link.</p>
+    {% elif reason == "expired" %}
+      <h1>Link Expired</h1>
+      <p>This registration link has expired. Please contact us to request a new registration link.</p>
+    {% else %}
+      <h1>Invalid Link</h1>
+      <p>This registration link is not valid. Please contact us to request a new registration link.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -21,7 +21,7 @@
 <body>
   <h1>Citizen Registration</h1>
 
-  <form method="post" novalidate>
+  <form method="post" action="{% url 'citizen_register' token %}" novalidate>
     {% csrf_token %}
 
     {% for field in form %}
