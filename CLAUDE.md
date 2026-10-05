@@ -46,14 +46,15 @@ docker compose run --rm -u "$(id -u):$(id -g)" web python manage.py <command>
 
 Required in `.env`:
 
-| Variable | Purpose |
-|---|---|
-| `ENVIRONMENT` | `DEV` or `PROD` (required — raises on anything else) |
-| `SECRET_KEY` | Django secret key |
-| `DATABASE_URL` | PostgreSQL URL (parsed by `dj-database-url`) |
-| `POSTGRES_USER/PASSWORD/DB`, `DB_PORT` | Used by docker-compose db service |
-| `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` | Gmail SMTP credentials |
-| `WEB_PORT`, `ADMIN_PORT`, `NGINX_PORT` | Container port mappings |
+| Variable                                                      | Purpose                                              |
+|---------------------------------------------------------------|------------------------------------------------------|
+| `ENVIRONMENT`                                                 | `DEV` or `PROD` (required — raises on anything else) |
+| `SECRET_KEY`                                                  | Django secret key                                    |
+| `DATABASE_URL`                                                | PostgreSQL URL (parsed by `dj-database-url`)         |
+| `POSTGRES_USER/PASSWORD/DB`, `DB_PORT`                        | Used by docker-compose db service                    |
+| `KAFKA_PORT`                                                  | Used by docker-compose kafka service                 |
+| `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`                      | Gmail SMTP credentials                               |
+| `WEB_PORT`, `ADMIN_PORT`, `NGINX_PORT`, `KAFKA_CONSUMER_PORT` | Container port mappings                              |
 
 `ENVIRONMENT=DEV` sets `ALLOWED_HOSTS = ["*"]` and relaxed cookie/CORS settings. The app raises `ValueError` at startup if `ENVIRONMENT` is not exactly `DEV` or `PROD`.
 
