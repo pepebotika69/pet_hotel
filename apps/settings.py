@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     "apps.mail",
     "apps.hotel",
     "apps.auth",
+    "apps.test_kafka",
 ]
 
 MIDDLEWARE = [
@@ -210,3 +211,33 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# Kafka
+KAFKA_BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")
+KAFKA_TOPICS = {
+    "test": os.environ.get("KAFKA_TOPIC_TEST", "pet_hotel_test"),
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "kafka_file": {
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "suarez/logs/kafka_messages.log",
+            "formatter": "simple",
+        },
+    },
+    "formatters": {
+        "simple": {
+            "format": "%(asctime)s %(levelname)s %(message)s",
+        },
+    },
+    "loggers": {
+        "kafka_messages": {
+            "handlers": ["kafka_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

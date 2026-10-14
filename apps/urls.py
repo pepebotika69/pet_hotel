@@ -7,4 +7,5 @@ urlpatterns = [
     path("api/", include("apps.hotel.urls")),
     path("", include("apps.embassy.urls")),
     path("api/auth/", include("apps.auth.urls")),
+    path("kafka/", include("apps.test_kafka.urls")),
 ]
