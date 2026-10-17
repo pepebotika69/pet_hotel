@@ -218,6 +218,18 @@ KAFKA_TOPICS = {
     "test": os.environ.get("KAFKA_TOPIC_TEST", "pet_hotel_test"),
 }
 
+if ENVIRONMENT == ENVIRONMENT_DEV:
+    SENTRY_DSN = os.environ.get("SENTRY_DSN")
+    if SENTRY_DSN:
+        import sentry_sdk
+
+        sentry_sdk.init(
+            dsn=SENTRY_DSN,
+            environment=ENVIRONMENT_DEV,
+            traces_sample_rate=1,
+            auto_session_tracking=False,  # GlitchTip does not support sessions
+        )
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

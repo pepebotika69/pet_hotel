@@ -35,12 +35,67 @@ services:
     volumes:
       - ./pg_data_local:/var/lib/postgresql
 
-  # redis:
-  #   image: "redis:8.10-alpine"
-  #   container_name: cache
-  #   restart: unless-stopped
-  #   ports:
-  #     - "${REDIS_PORT}:6379"
+  redis:
+    image: "redis:8.10-alpine"
+    container_name: cache
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT}:6379"
+
+  glitchtip_pg:
+    image: "postgres:16-alpine"
+    container_name: glitchtip_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: glitchtip
+      POSTGRES_USER: glitchtip
+      POSTGRES_PASSWORD: glitchtip
+    volumes:
+      - ./glitchtip_pg_data:/var/lib/postgresql/data
+
+  # only used once on start
+  glitchtip_migrate:
+    image: glitchtip/glitchtip:6.2.6
+    container_name: glitchtip_migrate
+    depends_on:
+      - glitchtip_pg
+    command: ./manage.py migrate
+    restart: "no"
+    environment:
+      DATABASE_URL: postgres://glitchtip:glitchtip@glitchtip_pg:5432/glitchtip
+      SECRET_KEY: ${GLITCHTIP_SECRET_KEY}
+      REDIS_URL: redis://redis:6379
+
+  glitchtip_web:
+    image: glitchtip/glitchtip:6.2.6
+    container_name: glitchtip_web
+    restart: unless-stopped
+    depends_on:
+      - glitchtip_pg
+      - redis
+      - glitchtip_migrate
+    ports:
+      - "${GLITCHTIP_PORT}:8000"
+    environment:
+      DATABASE_URL: postgres://glitchtip:glitchtip@glitchtip_pg:5432/glitchtip
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY: ${GLITCHTIP_SECRET_KEY}
+      EMAIL_URL: consolemail://
+      GLITCHTIP_DOMAIN: http://localhost:${GLITCHTIP_PORT}
+      DEFAULT_FROM_EMAIL: glitchtip@localhost
+
+  glitchtip_worker:
+    image: glitchtip/glitchtip:6.2.6
+    container_name: glitchtip_worker
+    restart: unless-stopped
+    depends_on:
+      - glitchtip_pg
+      - redis
+    command: ./bin/run-celery-with-beat.sh
+    environment:
+      DATABASE_URL: postgres://glitchtip:glitchtip@glitchtip_pg:5432/glitchtip
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY: ${GLITCHTIP_SECRET_KEY}
 
   nginx:
     build:
