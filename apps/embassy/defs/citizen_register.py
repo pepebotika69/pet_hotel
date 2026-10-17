@@ -1,0 +1,1 @@
+WELCOME_SP_TEMPLATE_NAME = "welcome sp"

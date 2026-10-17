@@ -18,5 +18,8 @@
   <div class="icon">✓</div>
   <h1>Registration Successful</h1>
   <p>Your information has been submitted successfully.</p>
+  {% for message in messages %}
+  <p style="color: #b45309;">{{ message }}</p>
+  {% endfor %}
 </body>
 </html>

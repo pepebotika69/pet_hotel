@@ -1,9 +1,11 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.embassy.forms.citizen_form import CitizenForm
+from apps.embassy.logic.citizen_register import send_welcome_email
 from apps.embassy.models.registration_token import RegistrationToken
 
 
@@ -23,9 +25,12 @@ def citizen_register(request, token):
     if request.method == "POST":
         form = CitizenForm(request.POST)
         if form.is_valid():
-            form.save()
+            citizen = form.save()
             reg_token.used_at = timezone.now()
             reg_token.save(update_fields=["used_at"])
+            warning = send_welcome_email(citizen)
+            if warning:
+                messages.warning(request, warning)
             return redirect(reverse("citizen_register_success"))
     else:
         form = CitizenForm()
