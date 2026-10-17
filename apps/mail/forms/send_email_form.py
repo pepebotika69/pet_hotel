@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
@@ -44,13 +43,13 @@ class SendEmailForm(forms.Form):
     )
     citizen_recipients = forms.ModelMultipleChoiceField(
         queryset=Citizen.objects.not_deleted(),
-        widget=FilteredSelectMultiple(_("citizens"), is_stacked=False),
+        widget=forms.CheckboxSelectMultiple,
         label=_("Citizens"),
         required=False,
     )
     user_recipients = UserWithEmailChoiceField(
         queryset=get_user_model().objects.filter(is_active=True).exclude(email=""),
-        widget=FilteredSelectMultiple(_("users"), is_stacked=False),
+        widget=forms.CheckboxSelectMultiple,
         label=_("Users"),
         required=False,
     )
